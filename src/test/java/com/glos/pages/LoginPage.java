@@ -25,7 +25,7 @@ public final class LoginPage {
                 ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input"))));
     }
 
-    public void signIn(String username, String password) {
+    public void continueWithEmail(String username) {
         typeFirstVisible(List.of(
                 By.cssSelector("input[name='identifier']"),
                 By.cssSelector("input[type='email']"),
@@ -33,7 +33,20 @@ public final class LoginPage {
         clickFirstVisible(List.of(
                 By.cssSelector("button[type='submit']"),
                 By.xpath("//button[normalize-space()='Continue']")));
+    }
 
+    public boolean isPasswordStepDisplayed() {
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(20)).until(driver ->
+                    driver.findElements(By.cssSelector("input[name='password'], input[type='password']"))
+                            .stream().anyMatch(WebElement::isDisplayed));
+            return true;
+        } catch (org.openqa.selenium.TimeoutException ignored) {
+            return false;
+        }
+    }
+
+    public void continueWithPassword(String password) {
         typeFirstVisible(List.of(
                 By.cssSelector("input[name='password']"),
                 By.cssSelector("input[type='password']")), password);

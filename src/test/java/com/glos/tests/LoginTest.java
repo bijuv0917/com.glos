@@ -19,14 +19,16 @@ public class LoginTest {
 
     @AfterMethod(alwaysRun = true)
     public void closeBrowser() {
-        if (driver != null) driver.quit();
+        if (driver != null); //driver.quit();
     }
 
     @Test
     public void userCanSignInToGlosQa() {
         LoginPage login = new LoginPage(driver, DriverFactory.waitFor(driver));
         login.open(Config.get("baseUrl", "https://qa.glosonline.com/"));
-        login.signIn(Config.required("username"), Config.required("password"));
+        login.continueWithEmail(Config.required("username"));
+        Assert.assertTrue(login.isPasswordStepDisplayed(), "The password field was not displayed after continuing with the email address.");
+        login.continueWithPassword(Config.required("password"));
         Assert.assertTrue(login.isSignedIn(), "The GLOS QA user was not redirected to an authenticated page.");
     }
 }
