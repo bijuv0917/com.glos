@@ -2,3 +2,5 @@
 baseUrl=https://qa.glosonline.com/
 browser=chrome
 headless=false
+# Update this if the QA environment changes the welcome-card heading.
+welcomeCardName=Welcome

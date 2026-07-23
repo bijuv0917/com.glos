@@ -37,5 +37,10 @@ public class LoginTest {
         dashboard.openAcPanel();
         Assert.assertTrue(dashboard.isWelcomeBannerDisplayed(),
                 "The welcome banner was not displayed after opening the AC panel.");
+        String expectedWelcomeCardName = Config.get("welcomeCardName", "Welcome");
+        String displayedWelcomeCardName = dashboard.getWelcomeCardName();
+        Assert.assertTrue(displayedWelcomeCardName.contains(expectedWelcomeCardName),
+                "Expected welcome card name to contain '" + expectedWelcomeCardName
+                        + "' but it displayed '" + displayedWelcomeCardName + "'.");
     }
 }

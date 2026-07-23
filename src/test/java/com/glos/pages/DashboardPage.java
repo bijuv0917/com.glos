@@ -32,11 +32,22 @@ public final class DashboardPage {
 
     public boolean isWelcomeBannerDisplayed() {
         try {
-            new WebDriverWait(driver, Duration.ofSeconds(20)).until(currentDriver ->
-                    currentDriver.findElements(WELCOME_BANNER).stream().anyMatch(WebElement::isDisplayed));
+            findVisibleWelcomeBanner();
             return true;
         } catch (org.openqa.selenium.TimeoutException ignored) {
             return false;
         }
+    }
+
+    public String getWelcomeCardName() {
+        return findVisibleWelcomeBanner().getText().replaceAll("\\s+", " ").trim();
+    }
+
+    private WebElement findVisibleWelcomeBanner() {
+        return new WebDriverWait(driver, Duration.ofSeconds(20)).until(currentDriver ->
+                currentDriver.findElements(WELCOME_BANNER).stream()
+                        .filter(WebElement::isDisplayed)
+                        .findFirst()
+                        .orElse(null));
     }
 }
