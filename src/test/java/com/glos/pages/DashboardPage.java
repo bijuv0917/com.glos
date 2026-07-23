@@ -11,8 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public final class DashboardPage {
     private static final By THEME_TOGGLE = By.xpath("//button[@class='theme-toggle-btn']");
     private static final By AC_OPEN = By.xpath("//button[@class='ac-open-btn']");
-    private static final By WELCOME_BANNER = By.xpath(
-            "//*[contains(@class, 'welcome-banner') or contains(@class, 'welcome')][normalize-space()]");
+    private static final By WELCOME_CARD_HEADING = By.xpath("//h1[@class='mdb-hero-h1']");
 
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -30,9 +29,9 @@ public final class DashboardPage {
         wait.until(ExpectedConditions.elementToBeClickable(AC_OPEN)).click();
     }
 
-    public boolean isWelcomeBannerDisplayed() {
+    public boolean isWelcomeCardHeadingDisplayed() {
         try {
-            findVisibleWelcomeBanner();
+            findVisibleWelcomeCardHeading();
             return true;
         } catch (org.openqa.selenium.TimeoutException ignored) {
             return false;
@@ -40,12 +39,12 @@ public final class DashboardPage {
     }
 
     public String getWelcomeCardName() {
-        return findVisibleWelcomeBanner().getText().replaceAll("\\s+", " ").trim();
+        return findVisibleWelcomeCardHeading().getText().replaceAll("\\s+", " ").trim();
     }
 
-    private WebElement findVisibleWelcomeBanner() {
+    private WebElement findVisibleWelcomeCardHeading() {
         return new WebDriverWait(driver, Duration.ofSeconds(20)).until(currentDriver ->
-                currentDriver.findElements(WELCOME_BANNER).stream()
+                currentDriver.findElements(WELCOME_CARD_HEADING).stream()
                         .filter(WebElement::isDisplayed)
                         .findFirst()
                         .orElse(null));

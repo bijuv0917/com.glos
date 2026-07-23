@@ -35,8 +35,8 @@ public class LoginTest {
         DashboardPage dashboard = new DashboardPage(driver, DriverFactory.waitFor(driver));
         dashboard.toggleTheme();
         dashboard.openAcPanel();
-        Assert.assertTrue(dashboard.isWelcomeBannerDisplayed(),
-                "The welcome banner was not displayed after opening the AC panel.");
+        Assert.assertTrue(dashboard.isWelcomeCardHeadingDisplayed(),
+                "The welcome-card heading was not displayed after opening the AC panel.");
         String expectedWelcomeCardName = Config.get("welcomeCardName", "Welcome");
         String displayedWelcomeCardName = dashboard.getWelcomeCardName();
         Assert.assertTrue(displayedWelcomeCardName.contains(expectedWelcomeCardName),
