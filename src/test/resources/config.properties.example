@@ -1,0 +1,4 @@
+# Do not commit a real password. Prefer environment variables for all credentials.
+baseUrl=https://qa.glosonline.com/
+browser=chrome
+headless=false
